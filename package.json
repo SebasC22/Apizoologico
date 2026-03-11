@@ -17,5 +17,8 @@
   "bugs": {
     "url": "https://github.com/SebasC22/Apizoologico/issues"
   },
-  "homepage": "https://github.com/SebasC22/Apizoologico#readme"
+  "homepage": "https://github.com/SebasC22/Apizoologico#readme",
+  "dependencies": {
+    "express": "^5.2.1"
+  }
 }
