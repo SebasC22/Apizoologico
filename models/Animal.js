@@ -1,4 +1,3 @@
-models/Animal.js
 const mongoose = require("mongoose");
 
 // Esquema del Animal
