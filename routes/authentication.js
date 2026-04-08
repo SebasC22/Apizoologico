@@ -1,21 +1,18 @@
-const mongoose = require("mongoose"); // importando el componente mongoose
-const bcrypt = require("bcrypt"); // importando el componente bcrypt
-const userSchema = mongoose.Schema({
-    usuario: {
-        type: String,
-        required: true
-    },
-    correo: {
-        type: String,
-        required: true
-    },
-    clave: {
-        type: String,
-        required: true
-    }
+const express = require("express");
+const bcrypt = require("bcrypt");
+const router = express.Router(); 
+const userSchema = require("../models/user");
+router.post('/signup', async (req, res) => {
+    const { usuario, correo, clave } = req.body;
+    const user = new userSchema({
+        usuario: usuario,
+        correo: correo,
+        clave: clave
+    });
+    user.clave = await user.encryptClave(user.clave);
+    await user.save(); //save es un método de mongoose para guardar datos en MongoDB 
+    //res.json(user);
+    res.json(user);
+    message: "Usuario guardado."
 });
-userSchema.methods.encryptClave = async (clave) => {
-    const salt = await bcrypt.genSalt(10);
-    return bcrypt.hash(clave, salt);
-}
-module.exports = mongoose.model('User', userSchema);
+module.exports = router;
